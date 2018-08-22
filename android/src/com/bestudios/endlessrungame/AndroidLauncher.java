@@ -4,7 +4,8 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.bestudios.endlessrungame.EndlessRunGame;
+
+import game.EndlessRunGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
