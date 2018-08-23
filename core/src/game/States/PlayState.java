@@ -1,8 +1,11 @@
 package game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -21,9 +24,17 @@ public class PlayState extends State {
     private Array<Tube> tubes;
     private Texture ground;
     private Vector2 groundPos1,groundPos2;
+    private int score;
+    private String yourScoreName;
+    BitmapFont yourBitmapFontName;
+
+    ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
+        score = 0;
+        yourScoreName = "score: 0";
+        yourBitmapFontName = new BitmapFont();
         bird = new Bird(50,62);
         cam.setToOrtho(false, EndlessRunGame.WIDTH/2,EndlessRunGame.HEIGHT/2);
         bg = new Texture("bg.png");
@@ -53,6 +64,8 @@ public class PlayState extends State {
 
     @Override
     public void update(float dt) {
+        score++;
+        yourScoreName = "score: " + score;
         handleInput();
         updateGround();
         bird.update(dt);
@@ -64,8 +77,9 @@ public class PlayState extends State {
            if(cam.position.x - (cam.viewportWidth / 2) > tube.getPosBotTube().x + tube.getBottomTube().getWidth()){
                tube.reposition(tube.getPosBotTube().x  + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
            }
-
+//burda çizdir
             if(tube.collides((bird.getBounds()))){
+               System.out.println("aaaaaaaaaaaaaa");
                 gsm.set(new PlayState(gsm));
             }
         }
@@ -82,6 +96,7 @@ public class PlayState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+
         sb.draw(bg,cam.position.x-(cam.viewportWidth/2),0);
         sb.draw(bird.getTexture(),bird.getPosition().x,bird.getPosition().y);
 
@@ -90,8 +105,16 @@ public class PlayState extends State {
         }
         sb.draw(ground,groundPos1.x,groundPos1.y);
         sb.draw(ground,groundPos2.x,groundPos2.y);
-
+        yourBitmapFontName.setColor(250.0f, 0, 0, 19.0f);
+        yourBitmapFontName.draw(sb, yourScoreName, cam.position.x-80, 400);
         sb.end();
+
+
+        shapeRenderer.setAutoShapeType(true);
+        shapeRenderer.begin();
+        shapeRenderer.rect(bird.getBounds().x,bird.getBounds().y,bird.getBounds().getWidth()/8,bird.getBounds().height);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.end();
     }
 
     @Override
