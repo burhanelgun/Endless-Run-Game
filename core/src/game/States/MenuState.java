@@ -64,9 +64,12 @@ public class MenuState extends State {
         });
         buttonExit.pad(20);
 
-        table.add(buttonStart);
+        buttonStart.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
+        buttonExit.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
+
+        table.add(buttonStart).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
         table.row();
-        table.add(buttonExit).size(125,70);
+        table.add(buttonExit).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
         //table.debug();
         stage.addActor(table);
 
@@ -100,6 +103,7 @@ public class MenuState extends State {
 
     @Override
     public void dispose() {
+        stage.dispose();
         backgroud.dispose();
         playBtn.dispose();
         System.out.println("Menu State Disposed");
