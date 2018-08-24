@@ -37,6 +37,10 @@ public class Bird {
         flap= Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
     }
 
+    public Texture getBirdTexture(){
+        return texture;
+    }
+
     public void update(float dt){
         if(PlayState.i>7){
             MOVEMENT=300;
@@ -69,7 +73,7 @@ public class Bird {
     }
 
     public void jump(){
-        velocity.y=350;
+        velocity.y=450;
         flap.play();
     }
 

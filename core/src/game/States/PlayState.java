@@ -78,10 +78,20 @@ public class PlayState extends State {
                tube.reposition(tube.getPosBotTube().x  + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
            }
 //burda çizdir
-            if(tube.collides((bird.getBounds()))){
-               System.out.println("aaaaaaaaaaaaaa");
-                gsm.set(new PlayState(gsm));
-            }
+
+           if((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))){
+               System.out.println("bbbbbbbbbbbbbb= " + (tube.getBoundsBot().x - bird.getBounds().x));
+               gsm.set(new PlayState(gsm));
+           }
+
+
+
+           //System.out.println("bird.getBirdTexture().getWidth() = " + bird.getBirdTexture().getWidth());
+
+
+      /*    else if(bird.getBounds().y==ground.getHeight()+GROUND_Y_OFFSET && bird.getBounds().x+bird.getBirdTexture().getWidth()/2>tube.getPosBotTube().x){
+               gsm.set(new PlayState(gsm));
+           }*/
         }
 
         if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET){
@@ -90,6 +100,7 @@ public class PlayState extends State {
 
         }
         cam.update();
+
     }
 
     @Override
@@ -109,12 +120,12 @@ public class PlayState extends State {
         yourBitmapFontName.draw(sb, yourScoreName, cam.position.x-80, 400);
         sb.end();
 
-
         shapeRenderer.setAutoShapeType(true);
         shapeRenderer.begin();
         shapeRenderer.rect(bird.getBounds().x,bird.getBounds().y,bird.getBounds().getWidth()/8,bird.getBounds().height);
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.end();
+
     }
 
     @Override

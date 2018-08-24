@@ -1,0 +1,21 @@
+
+button.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+normalbuton
+  rotate: false
+  xy: 0, 0
+  size: 67, 67
+  split: 8, 15, 7, 15
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+pressbuton
+  rotate: false
+  xy: 67, 0
+  size: 67, 67
+  split: 14, 15, 15, 15
+  orig: 67, 67
+  offset: 0, 0
+  index: -1

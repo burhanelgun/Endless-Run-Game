@@ -46,6 +46,10 @@ public class Tube {
         return posBotTube;
     }
 
+    public Rectangle getBoundsBot() {
+        return boundsBot;
+    }
+
     public boolean collides(Rectangle player){
         return player.overlaps(boundsBot);
     }

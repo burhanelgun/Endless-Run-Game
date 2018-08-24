@@ -1,16 +1,76 @@
 package game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import game.EndlessRunGame;
 
 public class MenuState extends State {
+    private Stage stage;
     private Texture backgroud;
     private Texture playBtn;
-    public MenuState(GameStateManager gsm) {
+    private TextButton buttonStart,buttonExit;
+    private TextureAtlas atlas;
+    private BitmapFont white,black;
+    private Skin skin;
+    private Table table;
+    public MenuState(final GameStateManager gsm) {
         super(gsm);
+        white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
+        atlas = new TextureAtlas("button.pack");
+        skin= new Skin(atlas);
+
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        table = new Table(skin);
+        table.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = skin.getDrawable("normalbuton");
+        textButtonStyle.down = skin.getDrawable("pressbuton");
+        textButtonStyle.pressedOffsetX=1;
+        textButtonStyle.pressedOffsetY=-1;
+        textButtonStyle.font = white;
+        textButtonStyle.fontColor= Color.BLACK;
+
+        buttonStart = new TextButton("START",textButtonStyle);
+        buttonExit = new TextButton("EXIT",textButtonStyle);
+
+        buttonStart.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayState(gsm));
+            }
+        });
+        buttonStart.pad(20);
+
+
+        buttonExit.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+        buttonExit.pad(20);
+
+        table.add(buttonStart);
+        table.row();
+        table.add(buttonExit).size(125,70);
+        //table.debug();
+        stage.addActor(table);
+
+
         cam.setToOrtho(false, EndlessRunGame.WIDTH/2,EndlessRunGame.HEIGHT/2);
         backgroud = new Texture("bg.png");
         playBtn = new Texture("playbtn.png");
@@ -18,9 +78,9 @@ public class MenuState extends State {
 
     @Override
     public void handleInput() {
-        if(Gdx.input.justTouched()){
+      /*  if(Gdx.input.justTouched()){
             gsm.set(new PlayState(gsm));
-        }
+        }*/
     }
 
     @Override
@@ -30,11 +90,12 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
         sb.setProjectionMatrix(cam.combined);
-        sb.begin();
-        sb.draw(backgroud,0,0);
-        sb.draw(playBtn,cam.position.x-playBtn.getWidth()/2,cam.position.y);
-        sb.end();
+
     }
 
     @Override
