@@ -20,7 +20,7 @@ public class MenuState extends State {
     private Stage stage;
     private Texture backgroud;
     private Texture playBtn;
-    private TextButton buttonStart,buttonExit;
+    private TextButton buttonStart,buttonExit,buttonOptions;
     private TextureAtlas atlas;
     private BitmapFont white,black;
     private Skin skin;
@@ -46,6 +46,7 @@ public class MenuState extends State {
 
         buttonStart = new TextButton("START",textButtonStyle);
         buttonExit = new TextButton("EXIT",textButtonStyle);
+        buttonOptions = new TextButton("OPTIONS",textButtonStyle);
 
         buttonStart.addListener(new ClickListener(){
             @Override
@@ -64,10 +65,20 @@ public class MenuState extends State {
         });
         buttonExit.pad(20);
 
+        buttonOptions .addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new OptionsState(gsm));
+            }
+        });
+        buttonExit.pad(20);
+
         buttonStart.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
         buttonExit.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
 
         table.add(buttonStart).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
+        table.row();
+        table.add(buttonOptions).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
         table.row();
         table.add(buttonExit).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
         //table.debug();
