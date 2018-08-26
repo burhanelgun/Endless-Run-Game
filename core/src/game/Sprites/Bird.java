@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import game.States.OptionsState;
 import game.States.PlayState;
 
 public class Bird {
@@ -26,6 +27,7 @@ public class Bird {
     public static void setPosition(Vector3 position) {
         Bird.position = position;
     }
+
 
     public Bird(int x, int y){
         position = new Vector3(x,y,0);
@@ -74,7 +76,10 @@ public class Bird {
 
     public void jump(){
         velocity.y=450;
-        flap.play();
+        if(OptionsState.isFlapSoundActive==true){
+            flap.play();
+        }
+
     }
 
 

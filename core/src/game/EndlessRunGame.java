@@ -18,7 +18,7 @@ public class EndlessRunGame extends ApplicationAdapter {
 	private GameStateManager gsm;
 	private SpriteBatch batch;
 
-	private Music music;
+	private static Music music;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -30,6 +30,16 @@ public class EndlessRunGame extends ApplicationAdapter {
 		gsm.push(new MenuState(gsm));
 	}
 
+	public static void stopMusic(){
+		music.dispose();
+	}
+	public static void playMusic(){
+		System.out.println("müzik play edildi");
+		music=Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music.setLooping(true);
+		music.setVolume(0.1f);
+		music.play();
+	}
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

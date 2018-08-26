@@ -81,7 +81,7 @@ public class PlayState extends State {
 
            if((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))){
                System.out.println("bbbbbbbbbbbbbb= " + (tube.getBoundsBot().x - bird.getBounds().x));
-               gsm.set(new PlayState(gsm));
+               gsm.set(new MenuState(gsm));
            }
 
 
