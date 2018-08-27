@@ -58,11 +58,8 @@ public class PlayState extends State {
         stopIconImg.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 isPaused=true;
-               // bird.setMOVEMENT(0);
-
             }
         });
-
 
         ground = new Texture("ground.png");
         bird = new Bird(50,ground.getHeight()+GROUND_Y_OFFSET);
@@ -75,23 +72,28 @@ public class PlayState extends State {
        for(int i=1;i<TUBE_COUNT;i++) {
            tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
        }
+
     }
 
     @Override
     protected void handleInput() {
+
         if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET) {
             if (Gdx.input.justTouched()) {
-                Bird.GRAVITY = -15;
-                bird.jump();
+                    Bird.GRAVITY = -15;
+                    bird.jump();
             }
         }
+
     }
 
     @Override
     public void update(float dt) {
 
 
-            score++;
+            if(!isPaused){
+                score++;
+            }
             yourScoreName = "score: " + score;
             handleInput();
             updateGround();
