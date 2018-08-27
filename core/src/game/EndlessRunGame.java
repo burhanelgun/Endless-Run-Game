@@ -40,6 +40,11 @@ public class EndlessRunGame extends ApplicationAdapter {
 		music.setVolume(0.1f);
 		music.play();
 	}
+
+	public static boolean isMusicPlay(){
+		return music.isPlaying();
+	}
+
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

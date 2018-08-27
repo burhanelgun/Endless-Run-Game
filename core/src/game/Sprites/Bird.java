@@ -12,17 +12,23 @@ import game.States.PlayState;
 
 public class Bird {
     public static int GRAVITY =0;
+
+
     private static int MOVEMENT=250;
     public static Vector3 position;
     public static Vector3 velocity;
 
 
     private Rectangle bounds;
+
+
+
     private Animation birdAnimation;
     private Texture texture;
     private Sound flap;
 
     private Texture bird;
+    public static boolean isFlapSoundActive=true;
 
     public static void setPosition(Vector3 position) {
         Bird.position = position;
@@ -39,6 +45,14 @@ public class Bird {
         flap= Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
     }
 
+    public void stopBirdAnimation() {
+        birdAnimation.currentFrameTime=9999;
+    }
+
+    public void setMOVEMENT(int MOVEMENT) {
+        this.MOVEMENT = MOVEMENT;
+    }
+
     public Texture getBirdTexture(){
         return texture;
     }
@@ -53,17 +67,19 @@ public class Bird {
         if(PlayState.i>21){
             MOVEMENT=400;
         }
-        birdAnimation.update(dt);
-        if(position.y>0){
-            velocity.add(0,GRAVITY,0);
+        if(!PlayState.isPaused) {
+            birdAnimation.update(dt);
+            if (position.y > 0) {
+                velocity.add(0, GRAVITY, 0);
+            }
+            velocity.scl(dt);
+            position.add(MOVEMENT * dt, velocity.y, 0);
+            if (position.y < 0) {
+                position.y = 0;
+            }
+            velocity.scl(1 / dt);
+            bounds.setPosition(position.x, position.y);
         }
-        velocity.scl(dt);
-        position.add(MOVEMENT*dt,velocity.y,0);
-        if(position.y<0){
-            position.y=0;
-        }
-        velocity.scl(1/dt);
-        bounds.setPosition(position.x,position.y);
     }
 
     public Vector3 getPosition() {
@@ -76,7 +92,7 @@ public class Bird {
 
     public void jump(){
         velocity.y=450;
-        if(OptionsState.isFlapSoundActive==true){
+        if(isFlapSoundActive==true){
             flap.play();
         }
 

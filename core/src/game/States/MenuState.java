@@ -51,7 +51,10 @@ public class MenuState extends State {
         buttonStart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("leman");
                 gsm.set(new PlayState(gsm));
+                gsm.set(new PlayState(gsm));
+
             }
         });
         buttonStart.pad(20);
@@ -117,6 +120,9 @@ public class MenuState extends State {
         stage.dispose();
         backgroud.dispose();
         playBtn.dispose();
+        atlas.dispose();
+        skin.dispose();
+
         System.out.println("Menu State Disposed");
 
     }
