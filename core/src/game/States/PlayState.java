@@ -1,19 +1,25 @@
 package game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
@@ -40,6 +46,8 @@ public class PlayState extends State {
     Stage stage = new Stage();
     public static boolean isPaused=false;
     ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private Group pauseGroup;
+
 
 
     private Texture stopButtonUpTexture;
@@ -52,17 +60,18 @@ public class PlayState extends State {
 
     private ImageButton stopButton;
 
-    private Texture optionsButtonUpTexture;
-    private TextureRegion optionsButtonUpTextureRegion;
-    private TextureRegionDrawable optionsButtonUpTextureRegionDrawable;
 
-    private Texture optionsButtonDownTexture;
-    private TextureRegion optionsButtonDownTextureRegion;
-    private TextureRegionDrawable optionsButtonDownTextureRegionDrawable;
+    private TextButton buttonResume;
+    private TextButton buttonRetry;
 
-    private ImageButton optionsButton;
+    private TextureAtlas atlas;
+    private BitmapFont white,black;
+    private Skin skin;
+    private Table table;
 
-    public PlayState(GameStateManager gsm) {
+
+
+    public PlayState(final GameStateManager gsm) {
         super(gsm);
 
         stopButtonUpTexture = new Texture(Gdx.files.internal("stopButtonUp.png"));
@@ -75,18 +84,6 @@ public class PlayState extends State {
 
         stopButton = new ImageButton(stopButtonUpTextureRegionDrawable,stopButtonDownTextureRegionDrawable); //Set the button up
         stopButton.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f);
-
-
-        optionsButtonUpTexture = new Texture(Gdx.files.internal("optionsButtonUp.png"));
-        optionsButtonUpTextureRegion = new TextureRegion(optionsButtonUpTexture);
-        optionsButtonUpTextureRegionDrawable = new TextureRegionDrawable(optionsButtonUpTextureRegion);
-
-        optionsButtonDownTexture = new Texture(Gdx.files.internal("optionsButtonDown.png"));
-        optionsButtonDownTextureRegion = new TextureRegion(optionsButtonDownTexture);
-        optionsButtonDownTextureRegionDrawable = new TextureRegionDrawable(optionsButtonDownTextureRegion);
-
-        optionsButton = new ImageButton(optionsButtonUpTextureRegionDrawable,optionsButtonDownTextureRegionDrawable); //Set the button up
-        optionsButton.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+70, Gdx.graphics.getHeight()/1.15f);
 
         score = 0;
         yourScoreName = "score: 0";
@@ -103,7 +100,6 @@ public class PlayState extends State {
 
         stage.addActor(stopIconImg);
         stage.addActor(stopButton); //Add the button to the stage to perform rendering and take input.
-        stage.addActor(optionsButton); //Add the button to the stage to perform rendering and take input.
 
         Gdx.input.setInputProcessor(stage);
 
@@ -121,28 +117,76 @@ public class PlayState extends State {
            tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
        }
 
-
-
-        stopIconImg.addListener(new ClickListener() {
+        stopButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 isPaused=true;
+                pauseGroup = new Group();
+                Image semiTransparentBG=new Image( new Texture(Gdx.files.internal("bgC.png")));
+                semiTransparentBG.setSize(250,450);
+                semiTransparentBG.setPosition(Gdx.graphics.getWidth()/2-semiTransparentBG.getWidth()/2, Gdx.graphics.getHeight()/2-semiTransparentBG.getHeight()/2);
+
+
+                white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
+                atlas = new TextureAtlas("button.pack");
+                skin= new Skin(atlas);
+                table = new Table(skin);
+                table.setBounds(Gdx.graphics.getWidth()/2-semiTransparentBG.getWidth()/2,Gdx.graphics.getHeight()/2-semiTransparentBG.getHeight()/2,250,450);
+                TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+                textButtonStyle.up = skin.getDrawable("normalbuton");
+                textButtonStyle.down = skin.getDrawable("pressbuton");
+                textButtonStyle.pressedOffsetX=1;
+                textButtonStyle.pressedOffsetY=-1;
+                textButtonStyle.font = white;
+                textButtonStyle.fontColor= Color.BLACK;
+                buttonResume = new TextButton("RESUME",textButtonStyle);
+                buttonRetry = new TextButton("RETRY",textButtonStyle);
+
+                buttonResume.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                       isPaused=false;
+                       pauseGroup.remove();
+                    }
+                });
+                buttonResume.pad(20);
+                buttonResume.setPosition(250,375);
+                table.add(buttonResume);
+
+                table.row();
+
+                buttonRetry.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        isPaused = false;
+                        gsm.set(new PlayState(gsm));
+                    }
+                });
+                buttonResume.pad(20);
+                buttonResume.setPosition(36,48);
+                table.add(buttonRetry);
+                table.row();
+                table.add(buttonRetry);
+                table.row();
+                table.add(buttonRetry);
+                table.row();
+                table.add(buttonRetry);
+                table.row();
+
+
+                pauseGroup.addActor(semiTransparentBG);
+                pauseGroup.addActor(table);
+                stage.addActor(pauseGroup);
+
             }
         });
+
+
     }
 
     @Override
     protected void handleInput() {
 
-        stopButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                isPaused=true;
-            }
-        });
-        optionsButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new OptionsState(gsm));
-            }
-        });
+
 
         if(isPaused==false){
             if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET) {
