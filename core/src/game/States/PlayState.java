@@ -1,19 +1,21 @@
 package game.States;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import game.EndlessRunGame;
@@ -37,12 +39,55 @@ public class PlayState extends State {
     Image stopIconImg;
     Stage stage = new Stage();
     public static boolean isPaused=false;
-
     ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+
+    private Texture stopButtonUpTexture;
+    private TextureRegion stopButtonUpTextureRegion;
+    private TextureRegionDrawable stopButtonUpTextureRegionDrawable;
+
+    private Texture stopButtonDownTexture;
+    private TextureRegion stopButtonDownTextureRegion;
+    private TextureRegionDrawable stopButtonDownTextureRegionDrawable;
+
+    private ImageButton stopButton;
+
+    private Texture optionsButtonUpTexture;
+    private TextureRegion optionsButtonUpTextureRegion;
+    private TextureRegionDrawable optionsButtonUpTextureRegionDrawable;
+
+    private Texture optionsButtonDownTexture;
+    private TextureRegion optionsButtonDownTextureRegion;
+    private TextureRegionDrawable optionsButtonDownTextureRegionDrawable;
+
+    private ImageButton optionsButton;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        System.out.println("asasasasasasasasasasasasasasasasasasasasasasasasasas");
+
+        stopButtonUpTexture = new Texture(Gdx.files.internal("stopButtonUp.png"));
+        stopButtonUpTextureRegion = new TextureRegion(stopButtonUpTexture);
+        stopButtonUpTextureRegionDrawable = new TextureRegionDrawable(stopButtonUpTextureRegion);
+
+        stopButtonDownTexture = new Texture(Gdx.files.internal("stopButtonDown.png"));
+        stopButtonDownTextureRegion = new TextureRegion(stopButtonDownTexture);
+        stopButtonDownTextureRegionDrawable = new TextureRegionDrawable(stopButtonDownTextureRegion);
+
+        stopButton = new ImageButton(stopButtonUpTextureRegionDrawable,stopButtonDownTextureRegionDrawable); //Set the button up
+        stopButton.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f);
+
+
+        optionsButtonUpTexture = new Texture(Gdx.files.internal("optionsButtonUp.png"));
+        optionsButtonUpTextureRegion = new TextureRegion(optionsButtonUpTexture);
+        optionsButtonUpTextureRegionDrawable = new TextureRegionDrawable(optionsButtonUpTextureRegion);
+
+        optionsButtonDownTexture = new Texture(Gdx.files.internal("optionsButtonDown.png"));
+        optionsButtonDownTextureRegion = new TextureRegion(optionsButtonDownTexture);
+        optionsButtonDownTextureRegionDrawable = new TextureRegionDrawable(optionsButtonDownTextureRegion);
+
+        optionsButton = new ImageButton(optionsButtonUpTextureRegionDrawable,optionsButtonDownTextureRegionDrawable); //Set the button up
+        optionsButton.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+70, Gdx.graphics.getHeight()/1.15f);
+
         score = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
@@ -51,15 +96,18 @@ public class PlayState extends State {
         bg = new Texture("bg.png");
 
 
+
         stopIcon =new Texture(Gdx.files.internal("stopIcon.png"));
         stopIconImg=new Image(stopIcon);
-        Gdx.input.setInputProcessor(stage);
+
+
         stage.addActor(stopIconImg);
-        stopIconImg.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                isPaused=true;
-            }
-        });
+        stage.addActor(stopButton); //Add the button to the stage to perform rendering and take input.
+        stage.addActor(optionsButton); //Add the button to the stage to perform rendering and take input.
+
+        Gdx.input.setInputProcessor(stage);
+
+
 
         ground = new Texture("ground.png");
         bird = new Bird(50,ground.getHeight()+GROUND_Y_OFFSET);
@@ -73,22 +121,46 @@ public class PlayState extends State {
            tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
        }
 
+
+
+        stopIconImg.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                isPaused=true;
+            }
+        });
     }
 
     @Override
     protected void handleInput() {
 
-        if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET) {
-            if (Gdx.input.justTouched()) {
+        stopButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                isPaused=true;
+            }
+        });
+        optionsButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new OptionsState(gsm));
+            }
+        });
+
+        if(isPaused==false){
+            if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET) {
+                if (Gdx.input.justTouched()) {
                     Bird.GRAVITY = -15;
                     bird.jump();
+                }
             }
         }
-
     }
+
+
+
 
     @Override
     public void update(float dt) {
+
+
 
 
             if(!isPaused){
@@ -109,18 +181,10 @@ public class PlayState extends State {
 //burda çizdir
 
                 if((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))){
-                    System.out.println("bbbbbbbbbbbbbb= " + (tube.getBoundsBot().x - bird.getBounds().x));
                     gsm.set(new MenuState(gsm));
                 }
 
 
-
-                //System.out.println("bird.getBirdTexture().getWidth() = " + bird.getBirdTexture().getWidth());
-
-
-      /*    else if(bird.getBounds().y==ground.getHeight()+GROUND_Y_OFFSET && bird.getBounds().x+bird.getBirdTexture().getWidth()/2>tube.getPosBotTube().x){
-               gsm.set(new PlayState(gsm));
-           }*/
             }
 
             if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET){
@@ -139,7 +203,8 @@ public class PlayState extends State {
             sb.setProjectionMatrix(cam.combined);
             sb.begin();
 
-            sb.draw(bg,cam.position.x-(cam.viewportWidth/2),0);
+
+        sb.draw(bg,cam.position.x-(cam.viewportWidth/2),0);
             sb.draw(bird.getTexture(),bird.getPosition().x,bird.getPosition().y);
 
             for(Tube tube : tubes){
@@ -150,6 +215,7 @@ public class PlayState extends State {
             yourBitmapFontName.setColor(250.0f, 0, 0, 19.0f);
             yourBitmapFontName.draw(sb, yourScoreName, cam.position.x-80, 400);
             sb.end();
+
 
             stopIconImg.setHeight(40f);
             stopIconImg.setWidth(30f);
