@@ -36,7 +36,7 @@ public class Tube {
 
 
         posBotTube = new Vector2(x, TUBE_GAP-bottomTube.getHeight());
-        boundsBot=new Rectangle(posBotTube.x-3,posBotTube.y-3,bottomTube.getWidth()-3,bottomTube.getHeight()-3);
+        boundsBot=new Rectangle(posBotTube.x,posBotTube.y,bottomTube.getWidth(),bottomTube.getHeight());
     }
     public Texture getBottomTube() {
         return bottomTube;

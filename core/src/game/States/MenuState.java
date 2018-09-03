@@ -34,7 +34,9 @@ public class MenuState extends State {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         table = new Table(skin);
-        table.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        table.setBounds(0,Gdx.graphics.getHeight()/1.9f,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/1.5f);
+        table.setDebug(true);
+
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = skin.getDrawable("normalbuton");
@@ -79,11 +81,15 @@ public class MenuState extends State {
         buttonStart.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
         buttonExit.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
 
-        table.add(buttonStart).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
+        table.add(buttonStart).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
         table.row();
-        table.add(buttonOptions).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
+        table.add(buttonOptions).height(10);
         table.row();
-        table.add(buttonExit).size(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/10);
+        table.add(buttonOptions).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
+        table.row();
+        table.add(buttonExit).height(10);
+        table.row();
+        table.add(buttonExit).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
         //table.debug();
         stage.addActor(table);
 
