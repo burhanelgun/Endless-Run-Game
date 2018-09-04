@@ -46,6 +46,7 @@ public class PlayState extends State {
     Stage stage = new Stage();
     public static boolean isPaused=false;
     private Group pauseGroup;
+    private Group inputGroup;
 
 
 
@@ -74,6 +75,7 @@ public class PlayState extends State {
     private int rank;
     private int gamerCount;
     private BitmapFont white0;
+
 
 
     public PlayState(final GameStateManager gsm) {
@@ -150,14 +152,11 @@ public class PlayState extends State {
             public void clicked(InputEvent event, float x, float y) {
                 isPaused=true;
                 pauseGroup = new Group();
+                inputGroup=new Group();
                 Image semiTransparentBG=new Image( new Texture(Gdx.files.internal("bgC.png")));
                 semiTransparentBG.setSize(Gdx.graphics.getWidth()/1.5f,Gdx.graphics.getHeight()/1.8f);
                 semiTransparentBG.setPosition(Gdx.graphics.getWidth()/2-semiTransparentBG.getWidth()/2, Gdx.graphics.getHeight()/2-semiTransparentBG.getHeight()/1.6f);
 
-
-
-                System.out.println("Height = " + Gdx.graphics.getHeight());
-                System.out.println("Width = " + Gdx.graphics.getWidth());
 
                 atlas = new TextureAtlas("button.pack");
                 skin= new Skin(atlas);
@@ -277,8 +276,6 @@ public class PlayState extends State {
 
 
 
-                System.out.println("Height = " + Gdx.graphics.getHeight());
-                System.out.println("Width = " + Gdx.graphics.getWidth());
 
                 atlas = new TextureAtlas("button.pack");
                 skin= new Skin(atlas);

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+import game.FileHandler;
 import game.States.OptionsState;
 import game.States.PlayState;
 
@@ -93,7 +94,7 @@ public class Bird {
 
     public void jump(){
         velocity.y=450;
-        if(isFlapSoundActive==true){
+        if(isFlapSoundActive){
             flap.play();
         }
 

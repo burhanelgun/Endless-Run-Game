@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import game.EndlessRunGame;
+import game.FileHandler;
 import game.Sprites.Bird;
 
 public class OptionsState extends State {
@@ -128,6 +129,7 @@ public class OptionsState extends State {
                     musicOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("musicoff.png")))));
 
                     EndlessRunGame.stopMusic();
+                    FileHandler.setMusic(false);
                 }
             });
             musicOnImg.addListener(new ClickListener() {
@@ -135,7 +137,12 @@ public class OptionsState extends State {
                     musicOnImg.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("musicon.png")))));
                     musicOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("musicon0.png")))));
 
-                    EndlessRunGame.playMusic();
+
+                   // EndlessRunGame.playMusic();
+                   // FileHandler.setMusic(true);
+
+
+
                 }
             });
         }
@@ -147,7 +154,12 @@ public class OptionsState extends State {
                     musicOff0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("musicon.png")))));
 
 
-                    EndlessRunGame.playMusic();
+                    if(!EndlessRunGame.isMusicPlay()){
+                        EndlessRunGame.playMusic();
+                        FileHandler.setMusic(true);
+                    }
+
+
                 }
             });
             musicOffImg.addListener(new ClickListener() {
@@ -157,6 +169,8 @@ public class OptionsState extends State {
 
 
                     EndlessRunGame.stopMusic();
+                    FileHandler.setMusic(false);
+
                 }
             });
 
@@ -166,39 +180,43 @@ public class OptionsState extends State {
         if(Bird.isFlapSoundActive==true){
             soundOff0Img.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y){
-                    System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
                     soundOff0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundoff1.png")))));
                     soundOn1Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon0.png")))));
 
                     Bird.isFlapSoundActive=false;
+                    FileHandler.setSound(false);
+
                 }
             });
             soundOn1Img.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y){
-                    System.out.println("pppppppppppppppppppppppppppppppppppppppppppp");
                     soundOn1Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon1.png")))));
                     soundOff0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundoff0.png")))));
 
                     Bird.isFlapSoundActive=true;
+                    FileHandler.setSound(true);
+
                 }
             });
         }
         else {
             soundOff1Img.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y){
-                    System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
                     soundOff1Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundoff1.png")))));
                     soundOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon0.png")))));
 
                     Bird.isFlapSoundActive=false;
+                    FileHandler.setSound(false);
+
                 }
             });
             soundOn0Img.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y){
-                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                     soundOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon1.png")))));
                     soundOff1Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundoff0.png")))));
                     Bird.isFlapSoundActive=true;
+                    FileHandler.setSound(true);
+
 
                 }
             });
@@ -240,12 +258,10 @@ public class OptionsState extends State {
             musicOffImg.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/5.5f, Gdx.graphics.getHeight()/1.15f);
         }
         if(Bird.isFlapSoundActive){
-            System.out.println("ooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
             soundOn1Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);
             soundOff0Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/5.5f, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);
         }
         else {
-            System.out.println("erertretertretertret");
             soundOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon0.png")))));
             soundOn0Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);
             soundOff1Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/5.5f, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);

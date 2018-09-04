@@ -19,7 +19,6 @@ import game.EndlessRunGame;
 public class MenuState extends State {
     private Stage stage;
     private Texture backgroud;
-    private Texture playBtn;
     private TextButton buttonStart,buttonExit,buttonOptions;
     private TextureAtlas atlas;
     private BitmapFont white,black;
@@ -53,7 +52,6 @@ public class MenuState extends State {
         buttonStart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("leman");
                 gsm.set(new PlayState(gsm));
                 gsm.set(new PlayState(gsm));
 
@@ -96,7 +94,6 @@ public class MenuState extends State {
 
         cam.setToOrtho(false, EndlessRunGame.WIDTH/2,EndlessRunGame.HEIGHT/2);
         backgroud = new Texture("bg.png");
-        playBtn = new Texture("playbtn.png");
     }
 
     @Override
@@ -125,7 +122,6 @@ public class MenuState extends State {
     public void dispose() {
         stage.dispose();
         backgroud.dispose();
-        playBtn.dispose();
         atlas.dispose();
         skin.dispose();
 
