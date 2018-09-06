@@ -3,4 +3,12 @@
 
     <string name="app_name">Endless-Run-Game</string>
 
+    <!-- app_id -->
+    <string name="app_id" translatable="false">464626548954</string>
+    <!-- package_name -->
+    <string name="package_name" translatable="false">com.bestudios.endlessrungame</string>
+    <!-- leaderboard High Scores -->
+    <string name="leaderboard_high_scores" translatable="false">CgkI2oGa78INEAIQAA</string>
+
+
 </resources>

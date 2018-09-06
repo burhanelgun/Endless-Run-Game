@@ -1,1 +1,3 @@
+include ':mylibrary'
+include ':BaseGameUtils'
 include 'android', 'core', 'desktop'

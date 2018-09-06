@@ -304,7 +304,7 @@ public class PlayState extends State {
 
 
 
-                buttonSaveToScoreBoard = new TextButton("UPLOAD TO SCORE TABLE",textButtonStyle0);
+                buttonSaveToScoreBoard = new TextButton("HIGH SCORES",textButtonStyle0);
                 buttonRetry = new TextButton("RETRY",textButtonStyle0);
                 buttonMenu = new TextButton("BACK TO MENU",textButtonStyle0);
 

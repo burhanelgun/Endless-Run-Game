@@ -19,7 +19,7 @@ import game.EndlessRunGame;
 public class MenuState extends State {
     private Stage stage;
     private Texture backgroud;
-    private TextButton buttonStart,buttonExit,buttonOptions;
+    private TextButton buttonStart,buttonExit,buttonOptions,buttonHighScores ;
     private TextureAtlas atlas;
     private BitmapFont white,black;
     private Skin skin;
@@ -33,7 +33,7 @@ public class MenuState extends State {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         table = new Table(skin);
-        table.setBounds(0,Gdx.graphics.getHeight()/1.9f,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/1.5f);
+        table.setBounds(0,Gdx.graphics.getHeight()/1.9f,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/1.1f);
         table.setDebug(true);
 
 
@@ -48,6 +48,8 @@ public class MenuState extends State {
         buttonStart = new TextButton("START",textButtonStyle);
         buttonExit = new TextButton("EXIT",textButtonStyle);
         buttonOptions = new TextButton("OPTIONS",textButtonStyle);
+        buttonHighScores = new TextButton("HIGH SCORES",textButtonStyle);
+
 
         buttonStart.addListener(new ClickListener(){
             @Override
@@ -58,6 +60,15 @@ public class MenuState extends State {
             }
         });
         buttonStart.pad(20);
+
+        buttonHighScores.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+
+            }
+        });
+        buttonHighScores.pad(20);
 
 
         buttonExit.addListener(new ClickListener(){
@@ -80,6 +91,10 @@ public class MenuState extends State {
         buttonExit.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
 
         table.add(buttonStart).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
+        table.row();
+        table.add(buttonHighScores).height(10);
+        table.row();
+        table.add(buttonHighScores).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
         table.row();
         table.add(buttonOptions).height(10);
         table.row();
