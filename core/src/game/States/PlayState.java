@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import game.EndlessRunGame;
+import game.PlayServices;
 import game.Sprites.Bird;
 import game.Sprites.Tube;
 
@@ -75,12 +76,14 @@ public class PlayState extends State {
     private int rank;
     private int gamerCount;
     private BitmapFont white0;
+    private PlayServices playServices;
 
 
 
-    public PlayState(final GameStateManager gsm) {
+    public PlayState(final GameStateManager gsm, final PlayServices playServices) {
         super(gsm);
 
+        this.playServices = playServices;
         stopButtonUpTexture = new Texture(Gdx.files.internal("stopButtonUp.png"));
         stopButtonUpTextureRegion = new TextureRegion(stopButtonUpTexture);
         stopButtonUpTextureRegionDrawable = new TextureRegionDrawable(stopButtonUpTextureRegion);
@@ -195,7 +198,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new PlayState(gsm));
+                        gsm.set(new PlayState(gsm,playServices));
                     }
                 });
                 buttonRetry.pad(20);
@@ -207,7 +210,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new MenuState(gsm));
+                        gsm.set(new MenuState(gsm,playServices));
                     }
                 });
                 buttonMenu.pad(20);
@@ -267,6 +270,9 @@ public class PlayState extends State {
 
             if((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))){
                 // gsm.set(new MenuState(gsm));
+
+
+
                 stopButton.setDisabled(true);
                 isPaused=true;
                 pauseGroup = new Group();
@@ -356,8 +362,17 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused=false;
-                        pauseGroup.remove();
-                        gsm.set(new RankTable(gsm));
+                       /* pauseGroup.remove();
+                        gsm.set(new RankTable(gsm));*/
+
+
+                        System.out.println("PlayServices: Setting Score as : " + score);
+                        playServices.submitScore("CgkI2oGa78INEAIQAA",score); //
+                        playServices.submitLevel(score + 1);
+
+                        System.out.println("PlayServices: Submitted Score as : " + score );
+                        playServices.showScore("CgkI2oGa78INEAIQAA");
+
                     }
                 });
 
@@ -370,7 +385,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new PlayState(gsm));
+                        gsm.set(new PlayState(gsm,playServices));
                     }
                 });
                 buttonRetry.pad(20);
@@ -385,7 +400,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new MenuState(gsm));
+                        gsm.set(new MenuState(gsm,playServices));
                     }
                 });
                 buttonMenu.pad(20);

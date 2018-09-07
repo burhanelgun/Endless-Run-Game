@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import game.EndlessRunGame;
 import game.FileHandler;
+import game.PlayServices;
 import game.Sprites.Bird;
 
 public class OptionsState extends State {
@@ -34,12 +35,14 @@ public class OptionsState extends State {
     private Table table;
     private TextureAtlas atlas;
     private TextButton buttonStart;
+    private PlayServices playServices;
 
 
 
-    protected OptionsState(final GameStateManager gsm) {
+    protected OptionsState(final GameStateManager gsm, final PlayServices playServices) {
         super(gsm);
 
+        this.playServices=playServices;
         white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
         atlas = new TextureAtlas("button.pack");
         skin= new Skin(atlas);
@@ -59,7 +62,7 @@ public class OptionsState extends State {
         buttonStart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new MenuState(gsm));
+                gsm.set(new MenuState(gsm,playServices));
             }
         });
         buttonStart.pad(20);

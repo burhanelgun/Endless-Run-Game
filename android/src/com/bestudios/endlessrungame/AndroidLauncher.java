@@ -15,10 +15,11 @@ import com.google.example.games.basegameutils.GameHelper;
 import game.EndlessRunGame;
 import game.PlayServices;
 
+@SuppressWarnings("ALL")
 public class AndroidLauncher extends AndroidApplication implements PlayServices {
 
 	private GameHelper gameHelper;
-	private static final String leaderboard = "CgkI2oGa78INEAIQAA";
+	private static final String leaderboard = "CgkIzOmWjuMLEAIQAQ";
 
 
 	@Override
@@ -44,7 +45,8 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new EndlessRunGame(), config);
+		initialize(new EndlessRunGame(this), config);
+
 		//Gdx.app.log("hello","4444444444444444444444444444");
 
 
@@ -95,7 +97,7 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 				}
 			});
 		} catch (Exception e) {
-
+			Gdx.app.log("Burhan", "Log in failed: " + e.getMessage() + ".");
 		}
 	}
 
@@ -110,6 +112,7 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 				}
 			});
 		} catch (Exception e) {
+			Gdx.app.log("Burhan", "Log out failed: " + e.getMessage() + ".");
 
 		}
 	}
@@ -133,7 +136,7 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 			Games.Leaderboards.submitScore(gameHelper.getApiClient(), LeaderBoard, highScore);
 		}
 		else{
-			System.out.println(" Not signin Yet ");
+			Gdx.app.log("Burhan", "Not Signed Yet");
 		}
 
 	}
@@ -178,6 +181,6 @@ public class AndroidLauncher extends AndroidApplication implements PlayServices 
 
 	@Override
 	public boolean isSignedIn() {
-		return false;
+		return gameHelper.isSignedIn();
 	}
 }

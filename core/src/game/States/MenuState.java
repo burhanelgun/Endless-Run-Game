@@ -5,16 +5,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import game.EndlessRunGame;
+import game.PlayServices;
 
 public class MenuState extends State {
     private Stage stage;
@@ -24,8 +28,18 @@ public class MenuState extends State {
     private BitmapFont white,black;
     private Skin skin;
     private Table table;
-    public MenuState(final GameStateManager gsm) {
+    boolean isSigned=false;
+    private PlayServices playServices;
+    private Texture badCat;
+    private Image badCatImage;
+
+
+
+    public MenuState(final GameStateManager gsm, final PlayServices playServices) {
         super(gsm);
+        this.playServices=playServices;
+
+
         white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
         atlas = new TextureAtlas("button.pack");
         skin= new Skin(atlas);
@@ -33,7 +47,7 @@ public class MenuState extends State {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         table = new Table(skin);
-        table.setBounds(0,Gdx.graphics.getHeight()/1.9f,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/1.1f);
+        table.setBounds(0,Gdx.graphics.getHeight()/2.2f,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/1.1f);
         table.setDebug(true);
 
 
@@ -50,12 +64,22 @@ public class MenuState extends State {
         buttonOptions = new TextButton("OPTIONS",textButtonStyle);
         buttonHighScores = new TextButton("HIGH SCORES",textButtonStyle);
 
+        badCat = new Texture("badcat.png");
+
+        badCatImage= new Image(new SpriteDrawable(new Sprite(badCat)));
+
+        badCatImage.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
 
         buttonStart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new PlayState(gsm));
-                gsm.set(new PlayState(gsm));
+                gsm.set(new PlayState(gsm,playServices));
+                gsm.set(new PlayState(gsm,playServices));
 
             }
         });
@@ -65,6 +89,8 @@ public class MenuState extends State {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
+                playServices.showScore("CgkIzOmWjuMLEAIQAQ");
+                playServices.showLevel();
 
             }
         });
@@ -82,7 +108,7 @@ public class MenuState extends State {
         buttonOptions .addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new OptionsState(gsm));
+                gsm.set(new OptionsState(gsm,playServices));
             }
         });
         buttonExit.pad(20);
@@ -103,7 +129,10 @@ public class MenuState extends State {
         table.add(buttonExit).height(10);
         table.row();
         table.add(buttonExit).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
-        //table.debug();
+        //table.add(badCatImage).height(10);
+        table.row();
+        table.add(badCatImage).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/4);
+
         stage.addActor(table);
 
 
@@ -125,11 +154,12 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-        Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0,0,0,1);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         sb.setProjectionMatrix(cam.combined);
+
 
     }
 
