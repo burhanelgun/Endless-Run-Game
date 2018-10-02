@@ -8,20 +8,17 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import game.EndlessRunGame;
 import game.FileHandler;
-import game.PlayServices;
 import game.Sprites.Bird;
 
 public class OptionsState extends State {
@@ -35,14 +32,12 @@ public class OptionsState extends State {
     private Table table;
     private TextureAtlas atlas;
     private TextButton buttonStart;
-    private PlayServices playServices;
 
 
 
-    protected OptionsState(final GameStateManager gsm, final PlayServices playServices) {
+    protected OptionsState(final GameStateManager gsm) {
         super(gsm);
 
-        this.playServices=playServices;
         white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
         atlas = new TextureAtlas("button.pack");
         skin= new Skin(atlas);
@@ -62,7 +57,7 @@ public class OptionsState extends State {
         buttonStart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new MenuState(gsm,playServices));
+                gsm.set(new MenuState(gsm));
             }
         });
         buttonStart.pad(20);

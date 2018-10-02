@@ -18,26 +18,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import game.EndlessRunGame;
-import game.PlayServices;
 
 public class MenuState extends State {
     private Stage stage;
     private Texture backgroud;
-    private TextButton buttonStart,buttonExit,buttonOptions,buttonHighScores ;
+    private TextButton buttonStart,buttonExit,buttonOptions/*,buttonHighScores */;
     private TextureAtlas atlas;
     private BitmapFont white,black;
     private Skin skin;
     private Table table;
     boolean isSigned=false;
-    private PlayServices playServices;
     private Texture badCat;
     private Image badCatImage;
 
 
 
-    public MenuState(final GameStateManager gsm, final PlayServices playServices) {
+    public MenuState(final GameStateManager gsm) {
         super(gsm);
-        this.playServices=playServices;
 
 
         white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
@@ -62,7 +59,7 @@ public class MenuState extends State {
         buttonStart = new TextButton("START",textButtonStyle);
         buttonExit = new TextButton("EXIT",textButtonStyle);
         buttonOptions = new TextButton("OPTIONS",textButtonStyle);
-        buttonHighScores = new TextButton("HIGH SCORES",textButtonStyle);
+        //buttonHighScores = new TextButton("HIGH SCORES",textButtonStyle);
 
         badCat = new Texture("badcat.png");
 
@@ -78,14 +75,14 @@ public class MenuState extends State {
         buttonStart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new PlayState(gsm,playServices));
-                gsm.set(new PlayState(gsm,playServices));
+                gsm.set(new PlayState(gsm));
+                gsm.set(new PlayState(gsm));
 
             }
         });
         buttonStart.pad(20);
 
-        buttonHighScores.addListener(new ClickListener(){
+       /* buttonHighScores.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -95,7 +92,7 @@ public class MenuState extends State {
             }
         });
         buttonHighScores.pad(20);
-
+*/
 
         buttonExit.addListener(new ClickListener(){
             @Override
@@ -108,7 +105,7 @@ public class MenuState extends State {
         buttonOptions .addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new OptionsState(gsm,playServices));
+                gsm.set(new OptionsState(gsm));
             }
         });
         buttonExit.pad(20);
@@ -118,10 +115,10 @@ public class MenuState extends State {
 
         table.add(buttonStart).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
         table.row();
-        table.add(buttonHighScores).height(10);
+       /* table.add(buttonHighScores).height(10);
         table.row();
         table.add(buttonHighScores).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
-        table.row();
+        table.row();*/
         table.add(buttonOptions).height(10);
         table.row();
         table.add(buttonOptions).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);

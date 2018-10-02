@@ -1,17 +1,15 @@
 package game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,7 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import game.EndlessRunGame;
-import game.PlayServices;
 import game.Sprites.Bird;
 import game.Sprites.Tube;
 
@@ -66,7 +63,7 @@ public class PlayState extends State {
     private TextButton buttonResume;
     private TextButton buttonRetry;
     private TextButton buttonMenu;
-    private TextButton buttonSaveToScoreBoard;
+    //private TextButton buttonSaveToScoreBoard;
 
 
     private TextureAtlas atlas;
@@ -76,14 +73,14 @@ public class PlayState extends State {
     private int rank;
     private int gamerCount;
     private BitmapFont white0;
-    private PlayServices playServices;
+    Preferences prefs = Gdx.app.getPreferences("My Preferences");
 
 
 
-    public PlayState(final GameStateManager gsm, final PlayServices playServices) {
+    public PlayState(final GameStateManager gsm) {
         super(gsm);
 
-        this.playServices = playServices;
+        //this.playServices = playServices;
         stopButtonUpTexture = new Texture(Gdx.files.internal("stopButtonUp.png"));
         stopButtonUpTextureRegion = new TextureRegion(stopButtonUpTexture);
         stopButtonUpTextureRegionDrawable = new TextureRegionDrawable(stopButtonUpTextureRegion);
@@ -198,7 +195,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new PlayState(gsm,playServices));
+                        gsm.set(new PlayState(gsm));
                     }
                 });
                 buttonRetry.pad(20);
@@ -210,7 +207,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new MenuState(gsm,playServices));
+                        gsm.set(new MenuState(gsm));
                     }
                 });
                 buttonMenu.pad(20);
@@ -310,7 +307,7 @@ public class PlayState extends State {
 
 
 
-                buttonSaveToScoreBoard = new TextButton("HIGH SCORES",textButtonStyle0);
+                //buttonSaveToScoreBoard = new TextButton("HIGH SCORES",textButtonStyle0);
                 buttonRetry = new TextButton("RETRY",textButtonStyle0);
                 buttonMenu = new TextButton("BACK TO MENU",textButtonStyle0);
 
@@ -333,7 +330,17 @@ public class PlayState extends State {
 
 
 
-                Label label2 = new Label("WORLD RANK IN " + gamerCount +" GAMER\n" ,style);
+                Label label2 = new Label("YOUR SCORE "+score ,style);
+
+                Gdx.app.debug("score",""+score);
+                Gdx.app.debug("prefs.getInteger(\"rank\")",""+prefs.getInteger("rank"));
+
+                if(score>prefs.getInteger("rank")){
+                    prefs.putInteger("rank", score);
+                    prefs.flush();
+                }
+
+
                 if(Gdx.graphics.getWidth()>800){
                     label2.setFontScale(1.5f);
                 }
@@ -343,9 +350,9 @@ public class PlayState extends State {
                 table.add(label2).height(semiTransparentBG.getHeight()/7);  //
                 table.row();
 
-                Label label3 = new Label(""+rank ,style);
+                Label label3 = new Label("HIGHEST SCORE : "+prefs.getInteger("rank") ,style);
                 if(Gdx.graphics.getWidth()>800){
-                    label3.setFontScale(3);
+                    label3.setFontScale(1.6f);
                 }
                 else{
                     label3.setFontScale(0.7f);
@@ -357,13 +364,13 @@ public class PlayState extends State {
 
 
 
-
+/*
                 buttonSaveToScoreBoard.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused=false;
-                       /* pauseGroup.remove();
-                        gsm.set(new RankTable(gsm));*/
+                        pauseGroup.remove();
+                        gsm.set(new RankTable(gsm));
 
 
                         System.out.println("PlayServices: Setting Score as : " + score);
@@ -375,17 +382,17 @@ public class PlayState extends State {
 
                     }
                 });
-
-                buttonSaveToScoreBoard.pad(20);
+*/
+              /*  buttonSaveToScoreBoard.pad(20);
                 table.add(buttonSaveToScoreBoard).width(semiTransparentBG.getWidth()-semiTransparentBG.getWidth()/5).height(semiTransparentBG.getHeight()/8.5f);
-                table.row();
+                table.row();*/
 
 
                 buttonRetry.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new PlayState(gsm,playServices));
+                        gsm.set(new PlayState(gsm));
                     }
                 });
                 buttonRetry.pad(20);
@@ -400,7 +407,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
-                        gsm.set(new MenuState(gsm,playServices));
+                        gsm.set(new MenuState(gsm));
                     }
                 });
                 buttonMenu.pad(20);

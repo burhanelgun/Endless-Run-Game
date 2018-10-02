@@ -23,13 +23,10 @@ public class EndlessRunGame extends ApplicationAdapter {
 	public static final String TITLE="flappy bird";
 	private GameStateManager gsm;
 	private SpriteBatch batch;
-	private PlayServices playServices;
 
 	private static Music music;
 
-	public EndlessRunGame(PlayServices playServices){
-		this.playServices = playServices;
-	}
+
     public EndlessRunGame(){
 
     }
@@ -63,7 +60,7 @@ public class EndlessRunGame extends ApplicationAdapter {
 			Bird.isFlapSoundActive=false;
 		}
 		gsm=new GameStateManager();
-		gsm.push(new MenuState(gsm,playServices));
+		gsm.push(new MenuState(gsm));
 	}
 
 	public static void stopMusic(){
