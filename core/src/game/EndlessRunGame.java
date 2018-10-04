@@ -45,7 +45,7 @@ public class EndlessRunGame extends ApplicationAdapter {
 		}
 
 		batch = new SpriteBatch();
-		music=Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music=Gdx.audio.newMusic(Gdx.files.internal("bgMusic.mp3"));
 		music.setLooping(true);
 		music.setVolume(0.1f);
 		/*if(FileHandler.isMusicOn()){
@@ -84,7 +84,7 @@ public class EndlessRunGame extends ApplicationAdapter {
 
 	}
 	public static void playMusic(){
-			music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+			music = Gdx.audio.newMusic(Gdx.files.internal("bgMusic.mp3"));
 			music.setLooping(true);
 			music.setVolume(0.1f);
 			music.play();

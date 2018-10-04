@@ -44,7 +44,7 @@ public class Bird {
 
         birdAnimation = new Animation(new TextureRegion(texture),8,1f);
         bounds = new Rectangle(x,y,texture.getWidth()/8,texture.getHeight());
-        flap= Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
+        flap= Gdx.audio.newSound(Gdx.files.internal("jumpMusic.wav"));
     }
 
     public void stopBirdAnimation() {
@@ -140,7 +140,7 @@ public class Bird {
     public void jump(){
         velocity.y=400;
         if(isFlapSoundActive){
-            flap.play();
+            flap.play(0.05f);
         }
 
     }

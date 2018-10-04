@@ -2,6 +2,8 @@ package game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -45,6 +47,7 @@ public class PlayState extends State {
     public static boolean isPaused=false;
     private Group pauseGroup;
     private Group inputGroup;
+    private Music music;
 
 
 
@@ -79,6 +82,10 @@ public class PlayState extends State {
 
     public PlayState(final GameStateManager gsm) {
         super(gsm);
+        music = Gdx.audio.newMusic(Gdx.files.internal("failMusic.wav"));
+        music.setVolume(0.1f);
+        music.setLooping(false);
+
 
         //this.playServices = playServices;
         stopButtonUpTexture = new Texture(Gdx.files.internal("stopButtonUp.png"));
@@ -241,7 +248,6 @@ public class PlayState extends State {
 
 
 
-
     @Override
     public void update(float dt) {
 
@@ -265,8 +271,18 @@ public class PlayState extends State {
             }
 //burda çizdir
 
+            int counter=0;
             if((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))){
                 // gsm.set(new MenuState(gsm));
+
+
+
+
+
+                EndlessRunGame.stopMusic();
+                music.play();
+
+
 
 
                 PlayState.i=0;
@@ -426,6 +442,7 @@ public class PlayState extends State {
 
 
         }
+
 
         if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET){
             ////gsm.set(new PlayState(gsm));
