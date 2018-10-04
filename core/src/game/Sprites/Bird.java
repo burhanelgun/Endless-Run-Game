@@ -42,7 +42,7 @@ public class Bird {
         texture =new Texture("kedi.png");
 
 
-        birdAnimation = new Animation(new TextureRegion(texture),8,0.5f);
+        birdAnimation = new Animation(new TextureRegion(texture),8,1f);
         bounds = new Rectangle(x,y,texture.getWidth()/8,texture.getHeight());
         flap= Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
     }
@@ -60,14 +60,59 @@ public class Bird {
     }
 
     public void update(float dt){
-        if(PlayState.i>7){
-            MOVEMENT=300;
+        if(PlayState.i<3){
+            birdAnimation.maxFrameTime=0.1f;
+            MOVEMENT=250;
         }
-        if(PlayState.i>14){
-            MOVEMENT=350;
+        else if(PlayState.i<5){
+            birdAnimation.maxFrameTime=0.09f;
+            MOVEMENT=310;
         }
-        if(PlayState.i>21){
-            MOVEMENT=400;
+        else if(PlayState.i<7){
+            birdAnimation.maxFrameTime=0.08f;
+
+            MOVEMENT=340;
+        }
+        else if(PlayState.i<9){
+            birdAnimation.maxFrameTime=0.07f;
+
+            MOVEMENT=370;
+        }
+        else if(PlayState.i<11){
+            birdAnimation.maxFrameTime=0.06f;
+
+            MOVEMENT=380;
+        }
+        else if(PlayState.i<13){
+            birdAnimation.maxFrameTime=0.05f;
+
+            MOVEMENT=390;
+        }
+        else if(PlayState.i<15){
+            birdAnimation.maxFrameTime=0.045f;
+
+            MOVEMENT=410;
+        }
+        else if(PlayState.i<17){
+            birdAnimation.maxFrameTime=0.035f;
+
+            MOVEMENT=425;
+        }
+        else if(PlayState.i<19){
+            birdAnimation.maxFrameTime=0.025f;
+
+            MOVEMENT=430;
+        }
+        else if(PlayState.i<21){
+            birdAnimation.maxFrameTime=0.015f;
+
+            MOVEMENT=445;
+        }
+        else if(PlayState.i<23){
+            MOVEMENT=455;
+        }
+        else if(PlayState.i<25){
+            MOVEMENT=465;
         }
         if(!PlayState.isPaused) {
             birdAnimation.update(dt);
@@ -93,7 +138,7 @@ public class Bird {
     }
 
     public void jump(){
-        velocity.y=450;
+        velocity.y=400;
         if(isFlapSoundActive){
             flap.play();
         }

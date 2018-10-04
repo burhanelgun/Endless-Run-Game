@@ -229,8 +229,8 @@ public class PlayState extends State {
     @Override
     protected void handleInput() {
 
-        if(isPaused==false){
-            if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET) {
+       if(isPaused==false){
+            if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET && !stopButton.isPressed()) {
                 if (Gdx.input.justTouched()) {
                     Bird.GRAVITY = -15;
                     bird.jump();
@@ -269,7 +269,7 @@ public class PlayState extends State {
                 // gsm.set(new MenuState(gsm));
 
 
-
+                PlayState.i=0;
                 stopButton.setDisabled(true);
                 isPaused=true;
                 pauseGroup = new Group();

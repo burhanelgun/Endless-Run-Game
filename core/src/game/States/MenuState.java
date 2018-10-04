@@ -30,6 +30,8 @@ public class MenuState extends State {
     boolean isSigned=false;
     private Texture badCat;
     private Image badCatImage;
+    private Texture logo;
+    private Image logoImage;
 
 
 
@@ -62,8 +64,10 @@ public class MenuState extends State {
         //buttonHighScores = new TextButton("HIGH SCORES",textButtonStyle);
 
         badCat = new Texture("badcat.png");
+        logo = new Texture("logo.png");
 
         badCatImage= new Image(new SpriteDrawable(new Sprite(badCat)));
+        logoImage= new Image(new SpriteDrawable(new Sprite(logo)));
 
         badCatImage.addListener(new ClickListener(){
             @Override
@@ -111,8 +115,11 @@ public class MenuState extends State {
         buttonExit.pad(20);
 
         buttonStart.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
+        buttonOptions.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
         buttonExit.getLabel().setFontScale(Gdx.graphics.getWidth()/380, Gdx.graphics.getHeight()/800);
 
+        table.add(logoImage).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/8);
+        table.row();
         table.add(buttonStart).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
         table.row();
        /* table.add(buttonHighScores).height(10);
@@ -128,7 +135,7 @@ public class MenuState extends State {
         table.add(buttonExit).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/10);
         //table.add(badCatImage).height(10);
         table.row();
-        table.add(badCatImage).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/4);
+        //table.add(badCatImage).size(Gdx.graphics.getWidth()/1.1f,Gdx.graphics.getHeight()/4);
 
         stage.addActor(table);
 

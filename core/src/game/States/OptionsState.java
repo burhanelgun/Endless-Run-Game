@@ -1,6 +1,7 @@
 package game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,6 +33,8 @@ public class OptionsState extends State {
     private Table table;
     private TextureAtlas atlas;
     private TextButton buttonStart;
+    Preferences musicAndSoundPreferences = Gdx.app.getPreferences("musicAndSoundPreferences");
+
 
 
 
@@ -127,7 +130,10 @@ public class OptionsState extends State {
                     musicOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("musicoff.png")))));
 
                     EndlessRunGame.stopMusic();
-                    FileHandler.setMusic(false);
+                    //**FileHandler.setMusic(false);
+                    musicAndSoundPreferences.putBoolean("musicOn", false);
+                    musicAndSoundPreferences.flush();
+
                 }
             });
             musicOnImg.addListener(new ClickListener() {
@@ -154,7 +160,11 @@ public class OptionsState extends State {
 
                     if(!EndlessRunGame.isMusicPlay()){
                         EndlessRunGame.playMusic();
-                        FileHandler.setMusic(true);
+                        //**FileHandler.setMusic(true);
+                        musicAndSoundPreferences.putBoolean("musicOn", true);
+                        musicAndSoundPreferences.flush();
+
+
                     }
 
 
@@ -167,7 +177,9 @@ public class OptionsState extends State {
 
 
                     EndlessRunGame.stopMusic();
-                    FileHandler.setMusic(false);
+                    //FileHandler.setMusic(false);
+                    musicAndSoundPreferences.putBoolean("musicOn", false);
+                    musicAndSoundPreferences.flush();
 
                 }
             });
@@ -182,7 +194,11 @@ public class OptionsState extends State {
                     soundOn1Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon0.png")))));
 
                     Bird.isFlapSoundActive=false;
-                    FileHandler.setSound(false);
+                    //**FileHandler.setSound(false);
+                    musicAndSoundPreferences.putBoolean("soundOn", false);
+                    musicAndSoundPreferences.flush();
+
+
 
                 }
             });
@@ -192,7 +208,11 @@ public class OptionsState extends State {
                     soundOff0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundoff0.png")))));
 
                     Bird.isFlapSoundActive=true;
-                    FileHandler.setSound(true);
+                    //**FileHandler.setSound(true);
+                    musicAndSoundPreferences.putBoolean("soundOn", true);
+                    musicAndSoundPreferences.flush();
+
+
 
                 }
             });
@@ -204,7 +224,11 @@ public class OptionsState extends State {
                     soundOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon0.png")))));
 
                     Bird.isFlapSoundActive=false;
-                    FileHandler.setSound(false);
+                    //**FileHandler.setSound(false);
+                    musicAndSoundPreferences.putBoolean("soundOn", false);
+                    musicAndSoundPreferences.flush();
+
+
 
                 }
             });
@@ -213,7 +237,11 @@ public class OptionsState extends State {
                     soundOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon1.png")))));
                     soundOff1Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundoff0.png")))));
                     Bird.isFlapSoundActive=true;
-                    FileHandler.setSound(true);
+                    //**FileHandler.setSound(true);
+                    musicAndSoundPreferences.putBoolean("soundOn", true);
+                    musicAndSoundPreferences.flush();
+
+
 
 
                 }
@@ -243,8 +271,9 @@ public class OptionsState extends State {
 
 
         batch.begin();
-        font.draw(batch, "Music", Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/1.2f);
-        font.draw(batch, "Sound", Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/1.2f+Gdx.graphics.getHeight()/10);
+        font.getData().setScale(3,3);
+        font.draw(batch, "SOUND", Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/1.2f-50);
+        font.draw(batch, "MUSIC", Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/1.2f+Gdx.graphics.getHeight()/10-50);
         batch.end();
 
         if(EndlessRunGame.isMusicPlay()){

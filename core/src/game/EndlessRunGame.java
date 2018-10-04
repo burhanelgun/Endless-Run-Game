@@ -15,6 +15,7 @@ import java.io.File;
 import game.Sprites.Bird;
 import game.States.GameStateManager;
 import game.States.MenuState;
+import game.States.OptionsState;
 
 public class EndlessRunGame extends ApplicationAdapter {
 	public static final int WIDTH=480; //480
@@ -47,7 +48,7 @@ public class EndlessRunGame extends ApplicationAdapter {
 		music=Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
 		music.setLooping(true);
 		music.setVolume(0.1f);
-		if(FileHandler.isMusicOn()){
+		/*if(FileHandler.isMusicOn()){
 			music.play();
 		}
 		else{
@@ -58,7 +59,22 @@ public class EndlessRunGame extends ApplicationAdapter {
 		}
 		else {
 			Bird.isFlapSoundActive=false;
+		}*/
+
+		if(Gdx.app.getPreferences("musicAndSoundPreferences").getBoolean("musicOn")==true){
+			music.play();
+
 		}
+		else{
+			music.dispose();
+		}
+		if(Gdx.app.getPreferences("musicAndSoundPreferences").getBoolean("soundOn")==true){
+			Bird.isFlapSoundActive=true;
+		}
+		else {
+			Bird.isFlapSoundActive = false;
+		}
+
 		gsm=new GameStateManager();
 		gsm.push(new MenuState(gsm));
 	}
