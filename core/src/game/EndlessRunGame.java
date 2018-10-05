@@ -34,15 +34,7 @@ public class EndlessRunGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		switch(Gdx.app.getType()) {
-			case Android:
-				FileHandler file = new FileHandler("assets/userDatas.properties");
-				break;
-			case Desktop:
-				file = new FileHandler("userDatas.properties");
-				break;
 
-		}
 
 		batch = new SpriteBatch();
 		music=Gdx.audio.newMusic(Gdx.files.internal("bgMusic.mp3"));

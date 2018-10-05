@@ -33,13 +33,17 @@ public class OptionsState extends State {
     private Table table;
     private TextureAtlas atlas;
     private TextButton buttonStart;
-    Preferences musicAndSoundPreferences = Gdx.app.getPreferences("musicAndSoundPreferences");
+    Preferences musicAndSoundPreferencess = Gdx.app.getPreferences("musicAndSoundPreferences");
 
 
 
 
     protected OptionsState(final GameStateManager gsm) {
         super(gsm);
+        if(!musicAndSoundPreferencess.contains("musicOn")){
+            musicAndSoundPreferencess.putBoolean("musicOn", true);
+            musicAndSoundPreferencess.putBoolean("soundOn", true);
+        }
 
         white = new BitmapFont(Gdx.files.internal("font/white.fnt"),false);
         atlas = new TextureAtlas("button.pack");
@@ -131,8 +135,8 @@ public class OptionsState extends State {
 
                     EndlessRunGame.stopMusic();
                     //**FileHandler.setMusic(false);
-                    musicAndSoundPreferences.putBoolean("musicOn", false);
-                    musicAndSoundPreferences.flush();
+                    musicAndSoundPreferencess.putBoolean("musicOn", false);
+                    musicAndSoundPreferencess.flush();
 
                 }
             });
@@ -161,8 +165,8 @@ public class OptionsState extends State {
                     if(!EndlessRunGame.isMusicPlay()){
                         EndlessRunGame.playMusic();
                         //**FileHandler.setMusic(true);
-                        musicAndSoundPreferences.putBoolean("musicOn", true);
-                        musicAndSoundPreferences.flush();
+                        musicAndSoundPreferencess.putBoolean("musicOn", true);
+                        musicAndSoundPreferencess.flush();
 
 
                     }
@@ -178,8 +182,8 @@ public class OptionsState extends State {
 
                     EndlessRunGame.stopMusic();
                     //FileHandler.setMusic(false);
-                    musicAndSoundPreferences.putBoolean("musicOn", false);
-                    musicAndSoundPreferences.flush();
+                    musicAndSoundPreferencess.putBoolean("musicOn", false);
+                    musicAndSoundPreferencess.flush();
 
                 }
             });
@@ -195,8 +199,8 @@ public class OptionsState extends State {
 
                     Bird.isFlapSoundActive=false;
                     //**FileHandler.setSound(false);
-                    musicAndSoundPreferences.putBoolean("soundOn", false);
-                    musicAndSoundPreferences.flush();
+                    musicAndSoundPreferencess.putBoolean("soundOn", false);
+                    musicAndSoundPreferencess.flush();
 
 
 
@@ -209,8 +213,8 @@ public class OptionsState extends State {
 
                     Bird.isFlapSoundActive=true;
                     //**FileHandler.setSound(true);
-                    musicAndSoundPreferences.putBoolean("soundOn", true);
-                    musicAndSoundPreferences.flush();
+                    musicAndSoundPreferencess.putBoolean("soundOn", true);
+                    musicAndSoundPreferencess.flush();
 
 
 
@@ -225,8 +229,8 @@ public class OptionsState extends State {
 
                     Bird.isFlapSoundActive=false;
                     //**FileHandler.setSound(false);
-                    musicAndSoundPreferences.putBoolean("soundOn", false);
-                    musicAndSoundPreferences.flush();
+                    musicAndSoundPreferencess.putBoolean("soundOn", false);
+                    musicAndSoundPreferencess.flush();
 
 
 
@@ -238,8 +242,8 @@ public class OptionsState extends State {
                     soundOff1Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundoff0.png")))));
                     Bird.isFlapSoundActive=true;
                     //**FileHandler.setSound(true);
-                    musicAndSoundPreferences.putBoolean("soundOn", true);
-                    musicAndSoundPreferences.flush();
+                    musicAndSoundPreferencess.putBoolean("soundOn", true);
+                    musicAndSoundPreferencess.flush();
 
 
 

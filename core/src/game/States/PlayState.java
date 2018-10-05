@@ -48,6 +48,8 @@ public class PlayState extends State {
     private Group pauseGroup;
     private Group inputGroup;
     private Music music;
+    private int counter=0;
+
 
 
 
@@ -76,8 +78,9 @@ public class PlayState extends State {
     private int rank;
     private int gamerCount;
     private BitmapFont white0;
-    Preferences prefs = Gdx.app.getPreferences("My Preferences");
-
+    Preferences prefs = Gdx.app.getPreferences("MyPreferences");
+    int flag=0;
+    private int flagger = 0;
 
 
     public PlayState(final GameStateManager gsm) {
@@ -86,6 +89,9 @@ public class PlayState extends State {
         music.setVolume(0.1f);
         music.setLooping(false);
 
+        if(!prefs.contains("rank")){
+            prefs.putInteger("rank", 0);
+        }
 
         //this.playServices = playServices;
         stopButtonUpTexture = new Texture(Gdx.files.internal("stopButtonUp.png"));
@@ -152,7 +158,10 @@ public class PlayState extends State {
         tubes=new Array<Tube>();
 
         for(int i=1;i<TUBE_COUNT;i++) {
+            System.out.println("turta");
+
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
+
         }
 
         stopButton.addListener(new ClickListener() {
@@ -236,7 +245,7 @@ public class PlayState extends State {
     @Override
     protected void handleInput() {
 
-       if(isPaused==false){
+        if(isPaused==false){
             if(bird.getPosition().y<=ground.getHeight()+GROUND_Y_OFFSET && !stopButton.isPressed()) {
                 if (Gdx.input.justTouched()) {
                     Bird.GRAVITY = -15;
@@ -254,33 +263,44 @@ public class PlayState extends State {
 
 
 
-        if(!isPaused){
+
+        if(!isPaused && flagger==1){
             score++;
+            flagger=0;
         }
         yourScoreName = "SCORE: " + score;
         handleInput();
         updateGround();
         bird.update(dt);
         cam.position.x=bird.getPosition().x+80;
-
+        if(!music.isPlaying() && Gdx.app.getPreferences("musicAndSoundPreferencess").getBoolean("musicOn")==true && !EndlessRunGame.isMusicPlay()){
+            EndlessRunGame.playMusic();
+        }
         for(int i=0;i<tubes.size;i++){
             Tube tube = tubes.get(i);
 
             if(cam.position.x - (cam.viewportWidth / 2) > tube.getPosBotTube().x + tube.getBottomTube().getWidth()){
+                flagger=1;
+
                 tube.reposition(tube.getPosBotTube().x  + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+
+
             }
 //burda çizdir
 
-            int counter=0;
-            if((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))){
+            if(((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))) && counter ==0  ){
                 // gsm.set(new MenuState(gsm));
 
 
 
+                counter = 1;
+                if(Gdx.app.getPreferences("musicAndSoundPreferencess").getBoolean("musicOn")==true){
+                    flag=1;
+                    EndlessRunGame.stopMusic();
+                    music.play();
+                }
 
 
-                EndlessRunGame.stopMusic();
-                music.play();
 
 
 
@@ -347,7 +367,6 @@ public class PlayState extends State {
 
 
                 Label label2 = new Label("YOUR SCORE "+score ,style);
-
                 Gdx.app.debug("score",""+score);
                 Gdx.app.debug("prefs.getInteger(\"rank\")",""+prefs.getInteger("rank"));
 
@@ -408,6 +427,10 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
+                        if(music.isPlaying() && flag==1 && !EndlessRunGame.isMusicPlay()){
+                            music.stop();
+                            EndlessRunGame.playMusic();
+                        }
                         gsm.set(new PlayState(gsm));
                     }
                 });
@@ -423,6 +446,14 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
+                        System.out.println("music.isPlaying() : " + music.isPlaying());
+                        System.out.println("flag : " + flag);
+                        System.out.println("EndlessRunGame.isMusicPlay() : " + EndlessRunGame.isMusicPlay());
+
+                        if(music.isPlaying() && flag==1 && !EndlessRunGame.isMusicPlay()){
+                            music.stop();
+                            EndlessRunGame.playMusic();
+                        }
                         gsm.set(new MenuState(gsm));
                     }
                 });

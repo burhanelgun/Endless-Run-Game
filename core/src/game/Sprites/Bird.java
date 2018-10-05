@@ -61,45 +61,45 @@ public class Bird {
 
     public void update(float dt){
         if(PlayState.i<3){
-            birdAnimation.maxFrameTime=0.1f;
+            birdAnimation.maxFrameTime=0.08f;
             MOVEMENT=250;
         }
         else if(PlayState.i<5){
-            birdAnimation.maxFrameTime=0.09f;
+            birdAnimation.maxFrameTime=0.07f;
             MOVEMENT=310;
         }
         else if(PlayState.i<7){
-            birdAnimation.maxFrameTime=0.08f;
+            birdAnimation.maxFrameTime=0.06f;
 
             MOVEMENT=340;
         }
         else if(PlayState.i<9){
-            birdAnimation.maxFrameTime=0.07f;
+            birdAnimation.maxFrameTime=0.05f;
 
             MOVEMENT=370;
         }
         else if(PlayState.i<11){
-            birdAnimation.maxFrameTime=0.06f;
+            birdAnimation.maxFrameTime=0.04f;
 
             MOVEMENT=380;
         }
         else if(PlayState.i<13){
-            birdAnimation.maxFrameTime=0.05f;
+            birdAnimation.maxFrameTime=0.035f;
 
             MOVEMENT=390;
         }
         else if(PlayState.i<15){
-            birdAnimation.maxFrameTime=0.045f;
+            birdAnimation.maxFrameTime=0.030f;
 
             MOVEMENT=410;
         }
         else if(PlayState.i<17){
-            birdAnimation.maxFrameTime=0.035f;
+            birdAnimation.maxFrameTime=0.025f;
 
             MOVEMENT=425;
         }
         else if(PlayState.i<19){
-            birdAnimation.maxFrameTime=0.025f;
+            birdAnimation.maxFrameTime=0.020f;
 
             MOVEMENT=430;
         }
@@ -113,6 +113,9 @@ public class Bird {
         }
         else if(PlayState.i<25){
             MOVEMENT=465;
+        }
+        else if(PlayState.i>25){
+            MOVEMENT=500;
         }
         if(!PlayState.isPaused) {
             birdAnimation.update(dt);
