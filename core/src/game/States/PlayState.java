@@ -353,7 +353,7 @@ public class PlayState extends State {
 */
                 Label.LabelStyle style = new Label.LabelStyle();
                 style.font= new BitmapFont(Gdx.files.internal("font/black.fnt"),false);
-                Label label = new Label("     YOU DIED",style);
+                Label label = new Label("     GAME OVER",style);
                 if(Gdx.graphics.getWidth()>800){
                     label.setFontScale(2);
                 }
