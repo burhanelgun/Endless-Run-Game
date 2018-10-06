@@ -88,6 +88,7 @@ public class PlayState extends State {
         music = Gdx.audio.newMusic(Gdx.files.internal("failMusic.wav"));
         music.setVolume(0.1f);
         music.setLooping(false);
+        score = 0;
 
         if(!prefs.contains("rank")){
             prefs.putInteger("rank", 0);
@@ -211,6 +212,7 @@ public class PlayState extends State {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         isPaused = false;
+                        PlayState.i=0;
                         gsm.set(new PlayState(gsm));
                     }
                 });
@@ -231,7 +233,6 @@ public class PlayState extends State {
                 table.row();
                 table.add(buttonMenu).width(semiTransparentBG.getWidth()-semiTransparentBG.getWidth()/5).height(semiTransparentBG.getHeight()/7);
                 table.row();
-                table.setDebug(true);
 
                 pauseGroup.addActor(semiTransparentBG);
                 pauseGroup.addActor(table);
@@ -287,7 +288,6 @@ public class PlayState extends State {
 
             }
 //burda çizdir
-
             if(((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))) && counter ==0  ){
                 // gsm.set(new MenuState(gsm));
 
@@ -431,6 +431,8 @@ public class PlayState extends State {
                             music.stop();
                             EndlessRunGame.playMusic();
                         }
+                        PlayState.i=0;
+
                         gsm.set(new PlayState(gsm));
                     }
                 });
@@ -464,7 +466,6 @@ public class PlayState extends State {
                 table.row();
 
 
-                table.setDebug(true);
 
                 pauseGroup.addActor(semiTransparentBG);
                 pauseGroup.addActor(table);

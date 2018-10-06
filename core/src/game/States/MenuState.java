@@ -47,7 +47,6 @@ public class MenuState extends State {
         Gdx.input.setInputProcessor(stage);
         table = new Table(skin);
         table.setBounds(0,Gdx.graphics.getHeight()/2.2f,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/1.1f);
-        table.setDebug(true);
 
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
