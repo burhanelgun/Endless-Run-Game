@@ -292,14 +292,14 @@ public class PlayState extends State {
                 // gsm.set(new MenuState(gsm));
 
 
+                if(Gdx.app.getPreferences("musicAndSoundPreferencess").getBoolean("musicOn")==true) {
 
-                counter = 1;
-                if(Gdx.app.getPreferences("musicAndSoundPreferencess").getBoolean("musicOn")==true){
-                    flag=1;
+                    counter = 1;
+                    flag = 1;
                     EndlessRunGame.stopMusic();
                     music.play();
-                }
 
+                }
 
 
 

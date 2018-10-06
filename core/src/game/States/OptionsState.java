@@ -33,7 +33,7 @@ public class OptionsState extends State {
     private Table table;
     private TextureAtlas atlas;
     private TextButton buttonStart;
-    Preferences musicAndSoundPreferencess = Gdx.app.getPreferences("musicAndSoundPreferences");
+    Preferences musicAndSoundPreferencess = Gdx.app.getPreferences("musicAndSoundPreferencess");
 
 
 
