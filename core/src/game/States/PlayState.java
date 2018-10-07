@@ -288,7 +288,6 @@ public class PlayState extends State {
 
             }
 //burda çizdir
-            if(false)
             if(((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))) && counter ==0  ){
                 // gsm.set(new MenuState(gsm));
 

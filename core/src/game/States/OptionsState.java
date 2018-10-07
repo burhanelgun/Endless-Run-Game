@@ -276,26 +276,32 @@ public class OptionsState extends State {
 
         batch.begin();
         font.getData().setScale(3,3);
-        font.draw(batch, "SOUND", Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/1.2f-50);
-        font.draw(batch, "MUSIC", Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/1.2f+Gdx.graphics.getHeight()/10-50);
+        font.draw(batch, "SOUND", Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9+musicOn.getHeight());
+        font.draw(batch, "MUSIC", Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/1.15f+musicOn.getHeight());
         batch.end();
+
 
         if(EndlessRunGame.isMusicPlay()){
             musicOnImg.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f);
             musicOn0Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/5.5f, Gdx.graphics.getHeight()/1.15f);
+
         }
         else {
             musicOff0Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f);
             musicOffImg.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/5.5f, Gdx.graphics.getHeight()/1.15f);
+
         }
+
         if(Bird.isFlapSoundActive){
             soundOn1Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);
             soundOff0Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/5.5f, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);
+
         }
         else {
             soundOn0Img.setDrawable(new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("soundon0.jpg")))));
             soundOn0Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);
             soundOff1Img.setPosition(Gdx.graphics.getWidth()/10+Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/5.5f, Gdx.graphics.getHeight()/1.15f-+Gdx.graphics.getHeight()/9);
+
         }
 
 

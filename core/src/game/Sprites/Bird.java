@@ -143,7 +143,7 @@ public class Bird {
     public void jump(){
         velocity.y=400;
         if(isFlapSoundActive){
-            flap.play(0.05f);
+            flap.play(0.08f);
         }
 
     }

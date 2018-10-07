@@ -39,7 +39,7 @@ public class EndlessRunGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		music=Gdx.audio.newMusic(Gdx.files.internal("bgMusic.mp3"));
 		music.setLooping(true);
-		music.setVolume(0.1f);
+		music.setVolume(1f);
 		/*if(FileHandler.isMusicOn()){
 			music.play();
 		}
@@ -53,14 +53,14 @@ public class EndlessRunGame extends ApplicationAdapter {
 			Bird.isFlapSoundActive=false;
 		}*/
 
-		if(Gdx.app.getPreferences("musicAndSoundPreferences").getBoolean("musicOn")==true){
+		if(Gdx.app.getPreferences("musicAndSoundPreferencess").getBoolean("musicOn")==true){
 			music.play();
 
 		}
 		else{
 			music.dispose();
 		}
-		if(Gdx.app.getPreferences("musicAndSoundPreferences").getBoolean("soundOn")==true){
+		if(Gdx.app.getPreferences("musicAndSoundPreferencess").getBoolean("soundOn")==true){
 			Bird.isFlapSoundActive=true;
 		}
 		else {
