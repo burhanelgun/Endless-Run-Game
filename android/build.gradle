@@ -36,8 +36,8 @@ android {
         applicationId "com.bestudios.endlessrungame"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "4.0"
     }
     buildTypes {
         release {
@@ -152,6 +152,6 @@ idea {
 }
 
 dependencies {
-    compile project(path: ':BaseGameUtils')
+    compile 'commons-codec:commons-codec:1.11'
 
 }

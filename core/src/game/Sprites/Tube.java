@@ -20,7 +20,7 @@ public class Tube {
 
     public Tube(float x){
         TUBE_WIDTH = r.nextInt(350)+250;
-        bottomTube = new Texture("engel0.png");
+        bottomTube = new Texture("engel0.jpg");
         posBotTube = new Vector2(x, TUBE_GAP-bottomTube.getHeight());
         boundsBot=new Rectangle(posBotTube.x,posBotTube.y,bottomTube.getWidth(),bottomTube.getHeight());
     }
@@ -43,7 +43,7 @@ public class Tube {
     public void reposition(float x){
         PlayState.i++;
         if(PlayState.i<3) {
-            bottomTube = new Texture("engel0.png");
+            bottomTube = new Texture("engel0.jpg");
             TUBE_WIDTH = r.nextInt(350) + 250;
         }
 
@@ -51,13 +51,13 @@ public class Tube {
             Random t = new Random();
             int a = t.nextInt((2 - 0) + 1) + 0;
             if(a==0){
-                bottomTube=new Texture("engel1.png");
+                bottomTube=new Texture("engel1.jpg");
             }
             else if(a==1){
-                bottomTube=new Texture("engel2.png");
+                bottomTube=new Texture("engel2.jpg");
             }
             else if(a==2){
-                bottomTube=new Texture("engel3.png");
+                bottomTube=new Texture("engel3.jpg");
             }
             TUBE_WIDTH = r.nextInt(250)+200;
         }
@@ -66,16 +66,16 @@ public class Tube {
             Random t = new Random();
             int a = t.nextInt((3 - 0) + 1) + 0;
             if(a==0){
-                bottomTube=new Texture("engel4.png");
+                bottomTube=new Texture("engel4.jpg");
             }
             else if(a==1){
-                bottomTube=new Texture("engel5.png");
+                bottomTube=new Texture("engel5.jpg");
             }
             else if(a==2){
-                bottomTube=new Texture("engel6.png");
+                bottomTube=new Texture("engel6.jpg");
             }
             else if(a==3){
-                bottomTube=new Texture("engel7.png");
+                bottomTube=new Texture("engel7.jpg");
             }
             TUBE_WIDTH = r.nextInt(200)+150;
         }
@@ -83,40 +83,40 @@ public class Tube {
             Random t = new Random();
             int a = t.nextInt((4 - 0) + 1) + 0;
             if (a == 0) {
-                bottomTube = new Texture("engel8.png");
+                bottomTube = new Texture("engel8.jpg");
             } else if (a == 1) {
-                bottomTube = new Texture("engel9.png");
+                bottomTube = new Texture("engel9.jpg");
             } else if (a == 2) {
-                bottomTube = new Texture("engel10.png");
+                bottomTube = new Texture("engel10.jpg");
             } else if (a == 3) {
-                bottomTube = new Texture("engel11.png");
+                bottomTube = new Texture("engel11.jpg");
             } else if (a == 4) {
-                bottomTube = new Texture("engel12.png");
+                bottomTube = new Texture("engel12.jpg");
             }
             }
             else if(PlayState.i>15) {
                 Random t = new Random();
                 int a = t.nextInt((9 - 0) + 1) + 0;
                 if (a == 0) {
-                    bottomTube = new Texture("engel14.png");
+                    bottomTube = new Texture("engel14.jpg");
                 } else if (a == 1) {
-                    bottomTube = new Texture("engel14.png");
+                    bottomTube = new Texture("engel14.jpg");
                 } else if (a == 2) {
-                    bottomTube = new Texture("engel14.png");
+                    bottomTube = new Texture("engel14.jpg");
                 } else if (a == 3) {
-                    bottomTube = new Texture("engel10.png");
+                    bottomTube = new Texture("engel10.jpg");
                 } else if (a == 4) {
-                    bottomTube = new Texture("engel11.png");
+                    bottomTube = new Texture("engel11.jpg");
                 } else if (a == 5) {
-                    bottomTube = new Texture("engel12.png");
+                    bottomTube = new Texture("engel12.jpg");
                 }else if (a == 6) {
-                    bottomTube = new Texture("engel13.png");
+                    bottomTube = new Texture("engel13.jpg");
                 }else if (a == 7) {
-                    bottomTube = new Texture("engel7.png");
+                    bottomTube = new Texture("engel7.jpg");
                 }else if (a == 8) {
-                    bottomTube = new Texture("engel5.png");
+                    bottomTube = new Texture("engel5.jpg");
                 }else if (a == 9) {
-                    bottomTube = new Texture("engel6.png");
+                    bottomTube = new Texture("engel6.jpg");
                 }
 
 

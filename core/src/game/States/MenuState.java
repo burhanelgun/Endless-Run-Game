@@ -28,7 +28,6 @@ public class MenuState extends State {
     private Skin skin;
     private Table table;
     boolean isSigned=false;
-    private Texture badCat;
     private Image badCatImage;
     private Texture logo;
     private Image logoImage;
@@ -62,18 +61,10 @@ public class MenuState extends State {
         buttonOptions = new TextButton("OPTIONS",textButtonStyle);
         //buttonHighScores = new TextButton("HIGH SCORES",textButtonStyle);
 
-        badCat = new Texture("badcat.png");
-        logo = new Texture("logo.png");
+        logo = new Texture("logo.jpg");
 
-        badCatImage= new Image(new SpriteDrawable(new Sprite(badCat)));
         logoImage= new Image(new SpriteDrawable(new Sprite(logo)));
 
-        badCatImage.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-            }
-        });
 
         buttonStart.addListener(new ClickListener(){
             @Override
@@ -140,7 +131,7 @@ public class MenuState extends State {
 
 
         cam.setToOrtho(false, EndlessRunGame.WIDTH/2,EndlessRunGame.HEIGHT/2);
-        backgroud = new Texture("bg.png");
+        backgroud = new Texture("bg.jpg");
     }
 
     @Override

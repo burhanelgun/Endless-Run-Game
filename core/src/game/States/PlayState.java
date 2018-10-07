@@ -138,7 +138,7 @@ public class PlayState extends State {
         stopMessage.getData().setScale(0.5f);
         bird = new Bird(50,62);
         cam.setToOrtho(false, EndlessRunGame.WIDTH/2,EndlessRunGame.HEIGHT/2);
-        bg = new Texture("bg.png");
+        bg = new Texture("bg.jpg");
 
 
 
@@ -150,7 +150,7 @@ public class PlayState extends State {
 
 
 
-        ground = new Texture("ground.png");
+        ground = new Texture("ground.jpg");
         bird = new Bird(50,ground.getHeight()+GROUND_Y_OFFSET);
 
         groundPos1= new Vector2(cam.position.x-cam.viewportWidth/2,GROUND_Y_OFFSET);
@@ -170,7 +170,7 @@ public class PlayState extends State {
                 isPaused=true;
                 pauseGroup = new Group();
                 inputGroup=new Group();
-                Image semiTransparentBG=new Image( new Texture(Gdx.files.internal("bgC.png")));
+                Image semiTransparentBG=new Image( new Texture(Gdx.files.internal("bgC.jpg")));
                 semiTransparentBG.setSize(Gdx.graphics.getWidth()/1.5f,Gdx.graphics.getHeight()/1.8f);
                 semiTransparentBG.setPosition(Gdx.graphics.getWidth()/2-semiTransparentBG.getWidth()/2, Gdx.graphics.getHeight()/2-semiTransparentBG.getHeight()/1.6f);
 
@@ -288,6 +288,7 @@ public class PlayState extends State {
 
             }
 //burda çizdir
+            if(false)
             if(((tube.collides((bird.getBounds()))) || ((bird.getBounds().y<ground.getHeight()+GROUND_Y_OFFSET) && (tube.getBoundsBot().x - bird.getBounds().x<55))) && counter ==0  ){
                 // gsm.set(new MenuState(gsm));
 
@@ -309,7 +310,7 @@ public class PlayState extends State {
                 stopButton.setDisabled(true);
                 isPaused=true;
                 pauseGroup = new Group();
-                Image semiTransparentBG=new Image( new Texture(Gdx.files.internal("bgC.png")));
+                Image semiTransparentBG=new Image( new Texture(Gdx.files.internal("bgC.jpg")));
                 semiTransparentBG.setSize(Gdx.graphics.getWidth()/1.5f,Gdx.graphics.getHeight()/1.8f);
                 semiTransparentBG.setPosition(Gdx.graphics.getWidth()/2-semiTransparentBG.getWidth()/2, Gdx.graphics.getHeight()/2-semiTransparentBG.getHeight()/1.6f);
 

@@ -39,7 +39,7 @@ public class Bird {
     public Bird(int x, int y){
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
-        texture =new Texture("kedi.png");
+        texture =new Texture("kedi.jpg");
 
 
         birdAnimation = new Animation(new TextureRegion(texture),8,1f);
